@@ -402,3 +402,53 @@ simm.levycorrpauses2 <- function (date=1:500, gamma_shape = 0.6891, gamma_rate =
 	res <- as.ltraj(data.frame(x, y), date, id, burst, typeII = typeII)
 	return(res)
 }
+
+
+# corrWalkRect()
+#---------------------------------------------------------------------------
+# Generate X,Y-coordinates confined to a rectangular area, following a
+# correlated walk rule with velocities sampled from a gamma distribution and 
+# including pauses
+#----------------------------------------------------------------------------
+# n = number of samples
+# xlim = min and max X-coordinates
+# ylim = min and max Y-coordinates
+# rho = concentration parameter for generating angles (0 <= rho <= 1)
+# h = average velocity
+#----------------------------------------------------------------------------
+corrWalkRect <- function(n, rho = 0.1, h = 0.2, xlim = c(0,105), ylim = c(0,68)) {
+  
+  # velocities sampled from chi distribution
+  if (h>0) {
+    v = rchi(n-1, chi_df) * h
+  } else {
+    v = -h
+  }
+  v <- rep(1, n)
+  
+  # angles sampled from wrapped normal distribution
+  ang <- CircStats::rwrpnorm(n-2,0,rho)
+  ang <- cumsum(c(runif(1,0,2*pi),ang))
+  x <- c(1:n)
+  y <- c(1:n)
+  x[1] = pitch_length / 2
+  y[1] = pitch_width / 2
+  
+  # generate x,y-coorrdinates within x,y-limits
+  for (i in 2:n) {
+    repeat {
+      newx = x[i-1]+v[i-1]*cos(ang[i-1])
+      newy = y[i-1]+v[i-1]*sin(ang[i-1])
+      
+      ## IF new locations are within bounds, then
+      ##    break out of the repeat{} loop (otherwise
+      ##    try again)
+      if (newx > xlim[1] && newx < xlim[2] &&
+          newy > ylim[1] && newy < ylim[2]) break
+    }
+    x[i] <- newx
+    y[i] <- newy
+  }
+  
+  data.frame(X = x, Y = y)
+}
