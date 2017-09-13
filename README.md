@@ -20,4 +20,4 @@ Simulates X,Y-trajectories of football players using a Lévy random random walk,
 
 <img src="https://user-images.githubusercontent.com/17113779/30368517-48f38bde-9869-11e7-8cc2-4ce888136e13.png" width="400"><img src="https://user-images.githubusercontent.com/17113779/30368520-4aaed38e-9869-11e7-80c5-2c319c16754b.png" width="400">
 
-**Figure 3.** Left: Movement of one Tromsø IL player in the first minute (1200 frames) of the [match vs. Strømsgodset](http://home.ifi.uio.no/paalh/dataset/alfheim/) (2013-11-03). Right: Simulated X,Y-trajectories for 1200 frames based upon parameters fitted to all players in this match. Background pitch created in gglot using [drawPitch.R](https://github.com/JoGall/football-stats/blob/master/drawPitch.R).
+**Figure 3.** Left: Movement of one Tromsø IL player in the first minute (1200 frames) of the [match vs. Strømsgodset](http://home.ifi.uio.no/paalh/dataset/alfheim/) (2013-11-03). Right: Simulated X,Y-trajectories for 1200 frames based upon parameters fitted to all players in this match. Background pitch created in gglot using [drawPitch.R](https://github.com/JoGall/football-xy/blob/master/drawPitch.R).
